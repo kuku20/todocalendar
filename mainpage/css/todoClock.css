@@ -1,0 +1,206 @@
+body{
+    font-family: 'Roboto', sans-serif;
+    /*to make background more attact use 
+    https://uigradients.com/#Mini
+    Bora Bora*/
+    background: #30E8BF;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #FF8235, #30E8BF);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #FF8235, #30E8BF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+    
+    }
+    h3{
+        background-color: #f6f6f6;
+        color: white;
+        margin-left: 5px;
+        text-transform: uppercase;
+        font-size: 10px;
+        font-weight: normal;
+    }
+    ul.todo{
+        list-style: none;/*to turn of the bulinte point*/
+        margin: 0;
+        padding: 0;
+    
+    }
+    /*to make senke color*/
+    li.todo{
+        background-color: #30E8BF;
+        height: 40px;
+        line-height: 40px;/*to make the text in midle of line*/
+        color: #666;
+    }
+    li.todo:nth-child(2n){
+        background-color: #f6f6f6;
+    }
+    input{
+        color: #28930a;
+        font-size: 18px;
+        background-color: #f6f6f6;
+        width: 100%;/*go through the contianer over?? */
+        padding: 13px 13px 13px 20px; 
+        box-sizing: border-box;/*make the box fix*/
+        border: 3px solid rgba(0,0,0,0);/*turn it off to see at add todo */
+    }
+    input:focus{
+        background-color: "white";
+        border: 3px solid #28930a;
+        outline: none;
+    }
+    .fa-plus{
+        float: right;/*to make the icoin go to the corner*/
+    }
+    .special{
+        /*This for the icon*/
+        background: red;
+        margin-right: 25px;
+        text-align: center;
+        color: white;
+        width: 0;
+        height: 40px;
+        display: inline-block;/*on and off this*/
+        transition: 0.3s linear;
+        opacity: 0;
+    }
+
+    li:hover span{
+        /*This for the icon*/
+        width: 40px;
+        opacity: 1.0;
+    }
+    
+    .completed{
+        color: gray;
+        text-decoration: line-through;
+    }
+/*this is for the section box out side*/
+        #out{
+            max-width: 100%;
+            padding-bottom: 50%;
+    
+        }
+        .bigBox{
+            width: 34%;
+            padding-bottom: 60%;
+            margin: 0.9%;
+            float: left;
+            border-radius: 10%;
+            /* background-color: blue; */
+    
+        }
+        #container{
+            box-shadow: 0 0 3px rgba(0,0,0,0.1);
+            /* width: 360px; */
+            width: 24%;
+                    /* padding-bottom: 60%; */
+                    margin: 0.9%;
+                    float: left;
+                    border-radius: 5%;
+            /* margin: 100px auto;to make the box in center */
+            background-color: #28930a;
+    
+        }
+    /*this is for the clock*/
+            .clock{
+                /*margin-top: 60px;*/
+                margin: 0px auto;
+                width: 300px;
+                height: 300px;
+                background-image: url("https://videohive.img.customer.envatousercontent.com/files/243549096/Clock%20Background%2001_preview1.JPG?auto=compress%2Cformat&fit=crop&crop=top&max-h=8000&max-w=590&s=ddbc665f63cd904a6634e45102028dda");
+                /*background-color:rgba(255,255,255,0.5);*/
+                border-radius: 50%;
+                border: 2px solid black;
+                position: relative;
+    
+    
+            }
+            .clock .number{
+                /*this is defaul of number to*/
+                --rotation:0;
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                text-align: center;
+                transform: rotate(var(--rotation));
+                font-size: 1.6rem;
+                font-weight: 700;
+                color: red;
+            }
+             .clock .number1{--rotation:30deg;}
+             .clock .number2{--rotation:60deg;}
+             .clock .number3{--rotation:90deg;}
+             .clock .number4{--rotation:120deg;}
+             .clock .number5{--rotation:150deg;}
+             .clock .number6{--rotation:180deg;
+                 text-transform: rotate(90deg);}
+             .clock .number7{--rotation:210deg;}
+             .clock .number8{--rotation:240deg;}
+             .clock .number9{--rotation:270deg;}
+             .clock .number10{--rotation:300deg;}
+             .clock .number11{--rotation:330deg;}
+    
+             .clock .hand{
+                 --rotation:0;
+                 position: absolute;
+                 bottom: 50%;
+                 left: 50%;
+                 
+                 background-color: black;
+                 border: 1px solid white;
+                 border-top-right-radius: 10px;
+                 border-top-left-radius: 10px;
+                 transform-origin: bottom;
+                 z-index: 10;
+                 transform: translateX(-50%) rotate(calc(var(--rotation)*1deg));
+             }
+             .clock::after{
+                 content: '';
+                 position: absolute;
+                 background-color: black;
+                 z-index: 11;
+                 width: 15px;
+                 height: 15px;
+                 top: 50%;
+                 left:  50%;
+                 transform: translate(-50%,-50%);
+                 border-radius: 50%;
+    
+             }
+             .clock .hand.second{
+                 width: 2px;
+                 height: 45%;
+                 background-color: red;
+             } 
+             .clock .hand.minute{
+                 width: 5px;
+                 height: 40%;
+                 background-color: black;
+             } 
+             .clock .hand.hour{
+                 width: 7px;
+                 height: 35%;
+                 background-color: black;
+             }
+    
+    
+    /*this is the calender*/
+    /*#calendar{
+        color: red;
+        background-color: white;
+        background-image: url("https://www.freegreatpicture.com/files/197/16579-background-on-the-calendar.jpg");
+    }*/
+    /* #calendar{
+        display: none;
+    } */
+    
+.hiden{
+    border: none;
+    padding: 10px;
+    width: 30%;
+    text-align: center;
+    margin-left: 35%;
+   
+}
+
+/* diary modifi */
+
