@@ -7,6 +7,6 @@ The main project is about:
 Check out the website below with:<br>
 Username: admin<br>
 Password: password<br>
-<img src = "cDtI5jZx.gif" width ="500"><br>
+<img src = "cDtI5jZx.gif" width ="700"><br>
 http://todolistdiary.epizy.com/c7/mainpage.php
 If you like it, you can sign up to use it.
