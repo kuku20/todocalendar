@@ -5,7 +5,7 @@ The main project is about:
 3.  Diary: where you can write your thought and read them later.
 
 Check out the website below with:
-Username: admin
-Password: password
-http://todolistdiary.epizy.com/c7/mainpage.php
-If you like it, you can sign up to use it.
+\nUsername: admin
+\nPassword: password
+\nhttp://todolistdiary.epizy.com/c7/mainpage.php
+\nIf you like it, you can sign up to use it.
