@@ -1,82 +1,78 @@
-<?php 
-	session_start();
 
-	// connect to database
-    $link = mysqli_connect("localhost", "root", "mysql", "calender");
+  <h3> special list</h3>
+  <ul class ="todo">
+      <?php
+// thiis for special
+      $userEvent = $_SESSION['username'];
+      // $start = date("Y-m-d");
+      // echo $start;
+      $sql2 = "SELECT *  FROM events WHERE userEvent ='$userEvent' AND datestart <= CURRENT_DATE() AND dateend >= CURRENT_DATE() ";
+      $result = mysqli_query($link,$sql2);
+      ?>  
+    <?php
+    while($row = mysqli_fetch_array($result)) {  
+      $ids=$row['id'];     
+      $start = $row['start'];
+      $tododay = $row['title'];
+          ?>
+          
+        <li class ="todo"> <span id="<? echo $row['id'] ?>" class="special" ><i class="fa fa-trash"></i></span> 
+        <strong><? echo $tododay ?> </strong>  <span><? echo $start ?></span> 
+      </li>
+      
+    <?php }
+    ?>
+  </ul>
+  
+  
+  
 
-	if (!$link) {
-		die("Error connecting to database: " . mysqli_connect_error());
-	}
+  <h3>today's to-do list <a href="todo/editdaylist.php">Edit</a> <i class="fa fa-plus"></i></h3>
+  <input type="text" name="" id="tododay" placeholder="Add New Todo">
+  <ul class ="todo" id="tdo">
+  <?php
+  $usertodo = $_SESSION['username'];
+  $sql = "SELECT id, tododay  FROM todo WHERE usertodo ='$usertodo' AND donedate != CURRENT_DATE() ";
+  $result = mysqli_query($link,$sql);
+ while($row = mysqli_fetch_array($result)) {  
+  $ids=$row['id'];     
+  $tododay = $row['tododay'];
+  // $created =$row['created_at'];
+       ?>
+    <li class ="todo" > <span id="<? echo $row['id'] ?>" class="halo"  ><i class="fa fa-trash"></i></span> 
+   <? echo $tododay ?>   
+   </li>
+  <?php }?>
+  </ul >
+  
+  
+  <?php 
+  // put in server
+      if (isset($_POST['save'])) {
+        $usertodo = $_SESSION['username'];
+        $tododay = $_POST['tododay'];
+        $sql = "INSERT INTO todo (usertodo, tododay, donedate) VALUES ('{$usertodo}', '{$tododay}','toidl')";
+      mysqli_query($link, $sql);
+      echo "You've been posted up!";
+        header('location: mainpage.php');
+        exit();
+      }
 
-	define ('ROOT_PATH', realpath(dirname(__FILE__)));
-	define('BASE_URL', 'http://localhost/complete-blog-php/');
-?>
+      if (isset($_POST['update'])) {
 
-<?php include('todo/server.php'); ?>
-<h1>Todo Day Lists <a href="todo/editdaylist.php">Edit</a> <i class="fa fa-plus"></i></h1>
+      $id = $_POST['id'];
+      $update = "UPDATE todo SET donedate =  CURRENT_DATE() WHERE `id` =".$id;
+      mysqli_query( $link,$update);
 
+      echo "You've been delete up!";
 
-<input type="text" name="" id="tododay" placeholder="Add New Todo">
-<ul>
-    <!-- <li> <span class="halo"><i class="fa fa-trash"></i></span> wake up at 6h30</li> -->
-<?php
-// session_start();
-// include ("connection.php");
+      }
+      if($_GET['delete'])
+      {
+      
+      $id=$_GET['id'];
+      $delete = "DELETE FROM `events` WHERE id=".$id;
+      mysqli_query( $link,$delete);
+      }
 
-$link = mysqli_connect("localhost", "root","mysql","calender");
-
-// Check connection
-if ($link->connect_error) {
-die("Connection failed: " . $link->connect_error);
-}
-$sql = "SELECT id, tododay  FROM todo WHERE usertodo ='Loc' AND donedate != CURRENT_DATE() ";
-$result = mysqli_query($link,$sql);
-
-?>  
-
-<?php
-while($row = mysqli_fetch_array($result)) {  
-$ids=$row['id'];     
-
-$tododay = $row['tododay'];
-// $created =$row['created_at'];
-   ?>
-<li> <span id="<? echo $row['id'] ?>" class="halo"  ><i class="fa fa-trash"></i></span> 
-<? echo $tododay ?>   
-</li>
-
-<?php }
-
-
-?>
-
-
-</ul>
-
-<h1> Specical Todo</h1>
-<ul>
-
-<?php
-
-$sql = "SELECT *  FROM events WHERE userEvent ='kuku20' AND start = CURRENT_DATE()  ";
-$result = mysqli_query($link,$sql);
-
-?>  
-
-<?php
-while($row = mysqli_fetch_array($result)) {  
-$ids=$row['id'];     
-$start = $row['start'];
-$tododay = $row['title'];
-   ?>
-   <p>
-<li> <span id="<? echo $row['id'] ?>" class="halo"  ><i class="fa fa-trash"></i></span> 
-<strong><? echo $tododay ?>,6) </strong>  <span><? echo $start ?></span> 
-</li>
-</p>
-<?php }
-
-
-?>
-
-</ul>
+  ?>

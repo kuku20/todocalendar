@@ -54,8 +54,6 @@ $("ul#tdo").append("<li class ='todo' ><span class = 'halo' ><i class='fa fa-tra
 $("span.halo").on("click",function(){
      var idstr = this.id;
   console.log(idstr);
-  if(confirm("You done this task today, it will show back tommorrow.\n Congratulations!"))
- 	{
     $.ajax({
         url: 'mainpage.php',
         type: 'POST',
@@ -67,15 +65,11 @@ $("span.halo").on("click",function(){
 			
         }
     });$(this).parent().remove();
-
- 	}
   });
 // for specialtodo
   $("span.special").on("click",function(){
 	var idstr = this.id;
  console.log(idstr);
- if(confirm("You done this task today.\n Congratulations!"))
-	{
    $.ajax({
 	   url: 'mainpage.php',
 	   type: 'GET',
@@ -88,7 +82,7 @@ $("span.halo").on("click",function(){
 	   }
    });
    
-	}
+	
  });
 
 
@@ -114,3 +108,58 @@ $("span.halo").on("click",function(){
 
 // ==========================calender==================================================
 
+// this for the delest post
+$(".delete").on("click",function(){
+	var idstr = this.id;
+	if(confirm("Are you sure you want to delete this?"))
+  {
+	  $.ajax({
+		  type: "GET",
+		  url: 'deletepost.php',
+		  data: {
+			'delete':1,
+			'id':idstr,
+		  },
+		  success: function(){
+		  }
+	  });
+	  $(this).parent().remove();
+  }
+});
+// this for the open TEXTEDITOR
+const openModalButtons = document.querySelectorAll('[data-modal-target]')
+const closeModalButtons = document.querySelectorAll('[data-close-button]')
+const overlay1 = document.getElementById('overlay1')
+
+openModalButtons.forEach(button => {
+button.addEventListener('click', () => {
+  const modal1 = document.querySelector(button.dataset.modalTarget)
+  openModal(modal1)
+})
+})
+
+overlay1.addEventListener('click', () => {
+const modals = document.querySelectorAll('.modal1.active')
+modals.forEach(modal1 => {
+  closeModal(modal1)
+})
+})
+
+closeModalButtons.forEach(button => {
+button.addEventListener('click', () => {
+  const modal1 = button.closest('.modal1')
+  closeModal(modal1)
+})
+})
+
+function openModal(modal1) {
+if (modal1 == null) return
+modal1.classList.add('active')
+overlay1.classList.add('active')
+}
+
+function closeModal(modal1) {
+if (modal1 == null) return
+modal1.classList.remove('active')
+overlay1.classList.remove('active')
+}

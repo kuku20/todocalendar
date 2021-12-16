@@ -1,5 +1,8 @@
+<?php require_once('config.php') ?>
 <?php
-session_start();
+session_start([
+    'cookie_lifetime'=>2592000,
+  ]);
 if($_GET["logout"]== 1 AND $_SESSION['id']) {
   session_destroy();
   $message = "You have been logged out. Have a nice day!";
@@ -12,7 +15,7 @@ $email    = "";
 $errors = array(); 
 
 // connect to the database
-$link = mysqli_connect('localhost', 'root', 'mysql', 'calender');
+
 
 // REGISTER USER
 if (isset($_POST['reg_user'])) {
@@ -28,7 +31,7 @@ if (isset($_POST['reg_user'])) {
   if (empty($email)) { array_push($errors, "Email is required"); }
   if (empty($password_1)) { array_push($errors, "Password is required"); }
   if ($password_1 != $password_2) {
-	array_push($errors, "The two passwords do not match");
+  array_push($errors, "The two passwords do not match");
   }
 
   // first check the database to make sure 
@@ -49,16 +52,16 @@ if (isset($_POST['reg_user'])) {
 
   // Finally, register user if there are no errors in the form
   if (count($errors) == 0) {
-  	$password = md5($password_1);//encrypt the password before saving in the database
+    $password = md5($password_1);//encrypt the password before saving in the database
 
-  	$query = "INSERT INTO users (username, email, password) 
-  			  VALUES('$username', '$email', '$password')";
+    $query = "INSERT INTO users (username, email, password) 
+          VALUES('$username', '$email', '$password')";
     mysqli_query($link, $query);
     echo "You've been signed up!";
     $_SESSION['id']=mysqli_insert_id($link);
-  	$_SESSION['username'] = $username;
-  	$_SESSION['success'] = "You are now logged in";
-  	header('location: mainpage.php');
+    $_SESSION['username'] = $username;
+    $_SESSION['success'] = "You are now logged in";
+    header('location: mainpage.php');
   }
 }
 

@@ -2,8 +2,6 @@
      
 
 $(document).ready(function(){
-    $(".hiden").click(function(){
-      $(".calbox").fadeToggle();
             var calendar = $('#calendar').fullCalendar({
                 header:{
                     left: 'prev,next today',
@@ -46,7 +44,7 @@ $(document).ready(function(){
             eventDrop: function(event, delta){
                 $.ajax({
                     url: 'mainpage/call.php',
-                    data: 'action=update&title='+event.title+'&start='+moment(event.start).format()+'&end='+moment(event.end).format()+'&id='+event.id+'&color='+event.color ,
+                    data: 'action=update&title='+event.title+'&start='+moment(event.start).format()+'&end='+moment(event.end).format()+'&id='+event.id+'&color='+event.color +'&datestart='+moment(event.start).format()+'&dateend='+moment(event.end).format() ,
                     type: "POST",
                     success: function(json) {
                     //alert(json);
@@ -56,7 +54,7 @@ $(document).ready(function(){
             eventResize: function(event) {
                 $.ajax({
                     url: 'mainpage/call.php',
-                    data: 'action=update&title='+event.title+'&start='+moment(event.start).format()+'&end='+moment(event.end).format()+'&id='+event.id+'&color='+event.color,
+                    data: 'action=update&title='+event.title+'&start='+moment(event.start).format()+'&end='+moment(event.end).format()+'&id='+event.id+'&color='+event.color +'&datestart='+moment(event.start).format()+'&dateend='+moment(event.end).format(),
                     type: "POST",
                     success: function(json) {
                         //alert(json);
@@ -66,8 +64,9 @@ $(document).ready(function(){
             });
                 
        
-        });
+        
     });
+
 
 
 // ========================================================================================================================================

@@ -10,11 +10,12 @@ body{
     
     }
     h3{
-        background-color: #f6f6f6;
+        background-color: #28930a;
         color: white;
-        margin-left: 5px;
+        margin: 0;
+        padding: 10px 20px;
         text-transform: uppercase;
-        font-size: 10px;
+        font-size: 24px;
         font-weight: normal;
     }
     ul.todo{
@@ -25,18 +26,18 @@ body{
     }
     /*to make senke color*/
     li.todo{
-        background-color: #30E8BF;
+        background-color: rgb(226, 225, 225);
         height: 40px;
         line-height: 40px;/*to make the text in midle of line*/
         color: #666;
     }
     li.todo:nth-child(2n){
-        background-color: #f6f6f6;
+        background-color: #ffffff;
     }
     input{
         color: #28930a;
         font-size: 18px;
-        background-color: #f6f6f6;
+        background-color: #f0f0f0;
         width: 100%;/*go through the contianer over?? */
         padding: 13px 13px 13px 20px; 
         box-sizing: border-box;/*make the box fix*/
@@ -49,6 +50,18 @@ body{
     }
     .fa-plus{
         float: right;/*to make the icoin go to the corner*/
+    }
+    .halo{
+        /*This for the icon*/
+        background: red;
+        margin-right: 25px;
+        text-align: center;
+        color: white;
+        width: 0;
+        height: 40px;
+        display: inline-block;/*on and off this*/
+        transition: 0.3s linear;
+        opacity: 0;
     }
     .special{
         /*This for the icon*/
@@ -88,16 +101,19 @@ body{
             /* background-color: blue; */
     
         }
+        .calbox{
+            margin-left: 15px;
+        }
         #container{
             box-shadow: 0 0 3px rgba(0,0,0,0.1);
             /* width: 360px; */
-            width: 24%;
+            width: 26%;
                     /* padding-bottom: 60%; */
                     margin: 0.9%;
                     float: left;
                     border-radius: 5%;
             /* margin: 100px auto;to make the box in center */
-            background-color: #28930a;
+           
     
         }
     /*this is for the clock*/
@@ -146,7 +162,7 @@ body{
                  left: 50%;
                  
                  background-color: black;
-                 border: 1px solid white;
+                 /* border: 2px solid white; */
                  border-top-right-radius: 10px;
                  border-top-left-radius: 10px;
                  transform-origin: bottom;
@@ -156,7 +172,7 @@ body{
              .clock::after{
                  content: '';
                  position: absolute;
-                 background-color: black;
+                 /* background-color: black; */
                  z-index: 11;
                  width: 15px;
                  height: 15px;
@@ -174,12 +190,12 @@ body{
              .clock .hand.minute{
                  width: 5px;
                  height: 40%;
-                 background-color: black;
+                 background-color:#e91e1e ;
              } 
              .clock .hand.hour{
-                 width: 7px;
+                 width: 8px;
                  height: 35%;
-                 background-color: black;
+                 background-color: #0a30e7;
              }
     
     
@@ -204,3 +220,72 @@ body{
 
 /* diary modifi */
 
+.delete {
+    color: red;
+    cursor: pointer;
+    position: absolute;
+    right: 3px;
+    }
+    .note{
+        font-size:1.5em;
+      }
+/* this for the open texteditor */
+*, *::after, *::before {
+box-sizing: border-box;
+}
+
+.modal1 {
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%) scale(0);
+transition: 200ms ease-in-out;
+border: 1px solid black;
+border-radius: 10px;
+z-index: 10;
+background-color: whitesmoke;
+width: 90%;
+max-width: 90%;
+}
+
+.modal1.active {
+transform: translate(-50%, -50%) scale(1);
+}
+
+.modal1-header {
+padding: 10px 15px;
+display: flex;
+justify-content: space-between;
+align-items: center;
+border-bottom: 1px solid black;
+}
+
+.modal1-header .title {
+font-size: 2.25rem;
+font-weight: bold;
+}
+
+.modal1-header .close-button {
+cursor: pointer;
+border: none;
+outline: none;
+background: none;
+font-size: 3.25rem;
+font-weight: bold;
+}
+
+.modal1-body {
+padding: 10px 15px;
+}
+
+#overlay1 {
+position: fixed;
+opacity: 0;
+transition: 200ms ease-in-out;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: rgba(0, 0, 0, .5);
+pointer-events: none;
+}

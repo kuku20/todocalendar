@@ -13,16 +13,7 @@
                     <label class="control-label" for="inputPatient">Event:</label>
                     <div class="field desc">
                         <input class="form-control" id="title" name="title" placeholder="Event" type="text" value="">
-                        <input type="text" class="form-control" id="color" name="color" list="X" >
-                            <datalist id="X">
-                                <option value="red">
-                                <option value="organe">
-                                <option value="yellow">
-                                <option value="green">
-                                <option value="blue">
-                                <option value="indigo">
-                                <option value="violet">
-                            </datalist>
+                        <input type="color" class="form-control" id="color" name="color" value="#e66465" >
                     
                     </div>
                 </div>
