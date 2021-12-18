@@ -27,10 +27,19 @@
   $created_at = date('Y-m-d h:i:s a');
   $date_post  = date("Y-m-d");
   if($_POST['submit']=="submit"){
-      $note = trim($_POST['noteS']);
+      $note       = trim($_POST['noteS']);
+      $trim   = substr($_POST['noteS'], 0,5);
+      if($trim=='<ifra'){
+          $category= 'video';
+      }elseif ($trim=='<p><a') {
+          $category= 'link';
+      }else{
+          $category= 'text';
+      }
       $collection = $client->todocalender->userdiary;
       $insertOneResult = $collection->insertOne([
           'note'        => $note,
+          'category'    => $category,
           'userdiary'   => $userdiary,
           'created_at'  => $created_at,
           'date_post'   => $date_post,
