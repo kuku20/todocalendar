@@ -1,5 +1,6 @@
 <!-- for connect to the database -->
 <?php require_once('config.php') ?>
+<?php  require ('vendor/autoload.php')?>
 <!-- for check login -->
 <?php require_once('session.php') ?>
 <?php require_once('includes/header.php') ?>

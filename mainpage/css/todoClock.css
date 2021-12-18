@@ -224,68 +224,87 @@ body{
     color: red;
     cursor: pointer;
     position: absolute;
-    right: 3px;
+    right: 6px;
     }
-    .note{
-        font-size:1.5em;
-      }
+.update {
+    color: green;
+    cursor: pointer;
+    position: absolute;
+    right: 50px;
+}
+
+.note{
+    font-size:1.5em;
+  }
 /* this for the open texteditor */
 *, *::after, *::before {
 box-sizing: border-box;
 }
 
 .modal1 {
-position: fixed;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%) scale(0);
-transition: 200ms ease-in-out;
-border: 1px solid black;
-border-radius: 10px;
-z-index: 10;
-background-color: whitesmoke;
-width: 90%;
-max-width: 90%;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 1px solid black;
+    border-radius: 10px;
+    z-index: 10;
+    background-color: whitesmoke;
+    width: 90%;
+    max-width: 90%;
 }
 
 .modal1.active {
-transform: translate(-50%, -50%) scale(1);
+    transform: translate(-50%, -50%) scale(1);
 }
 
 .modal1-header {
-padding: 10px 15px;
-display: flex;
-justify-content: space-between;
-align-items: center;
-border-bottom: 1px solid black;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid black;
 }
 
 .modal1-header .title {
-font-size: 2.25rem;
-font-weight: bold;
+    font-size: 2.25rem;
+    font-weight: bold;
 }
 
 .modal1-header .close-button {
-cursor: pointer;
-border: none;
-outline: none;
-background: none;
-font-size: 3.25rem;
-font-weight: bold;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    background: none;
+    font-size: 3.25rem;
+    font-weight: bold;
 }
 
 .modal1-body {
-padding: 10px 15px;
+    padding: 10px 15px;
 }
-
+.modal2 {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: 200ms ease-in-out;
+    border: 1px solid black;
+    border-radius: 10px;
+    z-index: 10;
+    background-color: whitesmoke;
+    width: 90%;
+    max-width: 90%;
+}
 #overlay1 {
-position: fixed;
-opacity: 0;
-transition: 200ms ease-in-out;
-top: 0;
-left: 0;
-right: 0;
-bottom: 0;
-background-color: rgba(0, 0, 0, .5);
-pointer-events: none;
+    position: fixed;
+    opacity: 0;
+    transition: 200ms ease-in-out;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, .5);
+    pointer-events: none;
 }

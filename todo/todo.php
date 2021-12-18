@@ -2,26 +2,24 @@
   <h3> special list</h3>
   <ul class ="todo">
       <?php
-// thiis for special
+    // thiis for special
       $userEvent = $_SESSION['username'];
       // $start = date("Y-m-d");
       // echo $start;
-      $sql2 = "SELECT *  FROM events WHERE userEvent ='$userEvent' AND datestart <= CURRENT_DATE() AND dateend >= CURRENT_DATE() ";
-      $result = mysqli_query($link,$sql2);
-      ?>  
-    <?php
-    while($row = mysqli_fetch_array($result)) {  
-      $ids=$row['id'];     
-      $start = $row['start'];
-      $tododay = $row['title'];
+      $collection = $client->todocalender->events;
+      date_default_timezone_set('America/Phoenix');
+      $date = date('Y-m-d');
+      $listtododaily = $collection ->find(['userEvent'=> $userEvent]);
+      foreach ($listtododaily as $key) {
+        if($key['datestart'] <= $date and $key['datestart'] >= $date){
+          $ids= $key['_id'];
+          $tododay = $key['title'];    
+          $start = $key['start'];
           ?>
-          
-        <li class ="todo"> <span id="<? echo $row['id'] ?>" class="special" ><i class="fa fa-trash"></i></span> 
-        <strong><? echo $tododay ?> </strong>  <span><? echo $start ?></span> 
-      </li>
-      
-    <?php }
-    ?>
+          <li class ="todo"> <span id="<? echo $ids ?>" class="special" ><i class="fa fa-trash"></i></span> 
+          <strong><? echo $tododay ?> </strong>  <span><? echo $start ?></span> 
+          </li>
+      <?php }}?>
   </ul>
   
   
@@ -30,19 +28,22 @@
   <h3>today's to-do list <a href="todo/editdaylist.php">Edit</a> <i class="fa fa-plus"></i></h3>
   <input type="text" name="" id="tododay" placeholder="Add New Todo">
   <ul class ="todo" id="tdo">
-  <?php
-  $usertodo = $_SESSION['username'];
-  $sql = "SELECT id, tododay  FROM todo WHERE usertodo ='$usertodo' AND donedate != CURRENT_DATE() ";
-  $result = mysqli_query($link,$sql);
- while($row = mysqli_fetch_array($result)) {  
-  $ids=$row['id'];     
-  $tododay = $row['tododay'];
-  // $created =$row['created_at'];
-       ?>
-    <li class ="todo" > <span id="<? echo $row['id'] ?>" class="halo"  ><i class="fa fa-trash"></i></span> 
-   <? echo $tododay ?>   
-   </li>
-  <?php }?>
+    <?php
+      $usertodo = $_SESSION['username'];
+
+      $collection = $client->todocalender->todo;
+      date_default_timezone_set('America/Phoenix');
+      $date = date('Y-m-d');
+      $listtododaily = $collection ->find(['usertodo'=> $usertodo]);
+      foreach ($listtododaily as $key) {
+        if($key['donedate'] != $date ){
+          $ids= $key['_id'];
+          $tododay = $key['tododay'];
+          ?>
+          <li class ="todo" > <span id="<? echo $ids ?>" class="halo"  ><i class="fa fa-trash"></i></span> 
+          <? echo $tododay ?>   
+          </li>
+      <?php }}?>
   </ul >
   
   
@@ -51,28 +52,40 @@
       if (isset($_POST['save'])) {
         $usertodo = $_SESSION['username'];
         $tododay = $_POST['tododay'];
-        $sql = "INSERT INTO todo (usertodo, tododay, donedate) VALUES ('{$usertodo}', '{$tododay}','toidl')";
-      mysqli_query($link, $sql);
+        $collection = $client->todocalender->todo;
+
+        $insertOneResult = $collection->insertOne([
+        'usertodo'  => $usertodo,
+        'tododay'   => $tododay,
+        'donedate' => 'toidl',
+      ]);
       echo "You've been posted up!";
         header('location: mainpage.php');
         exit();
       }
 
+
+
       if (isset($_POST['update'])) {
 
-      $id = $_POST['id'];
-      $update = "UPDATE todo SET donedate =  CURRENT_DATE() WHERE `id` =".$id;
-      mysqli_query( $link,$update);
-
+      $id = new \MongoDB\BSON\ObjectId($_POST['id']);
+      $collection = $client->todocalender->todo;
+      date_default_timezone_set('America/Phoenix');
+      $donedate = date('Y-m-d');
+      $collection->updateOne(  
+        ['_id' => $id],
+        ['$set' => ['donedate' => $donedate]],
+      );
       echo "You've been delete up!";
 
       }
+      // not fix yet
       if($_GET['delete'])
       {
       
-      $id=$_GET['id'];
-      $delete = "DELETE FROM `events` WHERE id=".$id;
-      mysqli_query( $link,$delete);
+      $id=  new \MongoDB\BSON\ObjectId($_GET['id']);
+      $collection = $client->todocalender->events;
+      $collection->deleteOne(['_id' => $id]);
       }
 
   ?>

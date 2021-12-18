@@ -2,6 +2,7 @@
 <h1>Helllo to the daylist</h1>
 <h2>You can permanant delete your day do</h2>
 <?php require_once('../config.php') ?>
+<?php  require ('../vendor/autoload.php')?>
 <!-- for check login -->
 <?php require_once('../session.php') ?>
 <?php 

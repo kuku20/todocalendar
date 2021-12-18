@@ -69,7 +69,7 @@ $("span.halo").on("click",function(){
 // for specialtodo
   $("span.special").on("click",function(){
 	var idstr = this.id;
- console.log(idstr);
+ 	console.log(idstr);
    $.ajax({
 	   url: 'mainpage.php',
 	   type: 'GET',

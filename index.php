@@ -1,8 +1,9 @@
 
 
-<?php require_once('config.php') ?>
-<?php require_once('includes/header.php') ?>
 
+<?php require_once('includes/header.php') ?>
+<?php require_once('config.php') ?>
+<?php //require ('vendor/autoload.php')?>
 	<title>TODO | Home </title>
 </head>
 <body>

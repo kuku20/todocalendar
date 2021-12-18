@@ -1,4 +1,5 @@
 <?php  include('config.php'); ?>
+<?php  require ('vendor/autoload.php')?>
 <!-- Source code for handling registration and login -->
 <?php  include('includes/registration_login.php'); ?>
 

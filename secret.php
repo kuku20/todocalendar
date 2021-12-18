@@ -1,6 +1,7 @@
-
+<!-- calling form diary.php -->
 
 <?php require_once('config.php') ?>
+<?php  require ('vendor/autoload.php')?>
 <?php require_once('session.php') ?>
 <?php require_once( ROOT_PATH . '/secretincludes/header.php') ?>
 	<title>Your Diary </title>
@@ -29,46 +30,38 @@ background: linear-gradient(to right, #6be585, #dd3e54); /* W3C, IE 10+/ Edge, F
 
   <?php
 $userdiary = $_SESSION['username']; 
-$sql = "SELECT *  FROM user WHERE userdiary='$userdiary'  ";
-$result = mysqli_query($link,$sql);
+$collection = $client->todocalender->userdiary;
+$document = $collection->find(['userdiary' => $userdiary]);
 // to have the array to put data from the database
 $data=array();
-while($row = mysqli_fetch_array($result)) {     
-	$date_post =$row['date_post'];
+foreach ($document as $key) {
+	$date_post = $key['date_post'];
 	// to push the data to array data
 	array_push($data,$date_post);
 	}
 	// reverse and unique the array
 	$result = array_reverse(array_unique($data));
-	//  print_r($result);
 	//  use the foreach to print the array
-	 foreach ($result as &$value) {
-		//  select each data form array to select on the database
+	foreach ($result as &$value) {
+	//  select each data form array to select on the database
 	?>
 	<h1 style=" text-align: center;" ><? echo $value ?> </h1>
 	<hr>
 	<?php	
-	 $sql1 = "SELECT *  FROM user WHERE userdiary='$userdiary' AND date_post= '$value' ";
-    $result1 = mysqli_query($link,$sql1);
 
+	$collection = $client->todocalender->userdiary;
+	$document = $collection->find(['userdiary' => $userdiary, 'date_post'=> $value]);
     ?> <div class='main-container'> <?php
-      
-      while($row = mysqli_fetch_array($result1)) {  
-      // $ids=$row['id'];     
-      $note = $row['note'];
-      
-           ?>
-        <div >  
-            
+    foreach ($document as $key) {    
+      	$note = $key['note'];
+        ?>
+        <div >   
 		<span >  You wrote: <span class="delete" id="<? echo $row["id"] ?>" ></span>
                 <span class="note"><? echo $note ?></span>
-                 </span>
-                
-				
+                 </span>        			
         </div>
 		<hr>
      <?php }
-
 }
 
     ?>
@@ -87,11 +80,6 @@ while($row = mysqli_fetch_array($result)) {
 	
 
 </div>
-
-
-
-
-
 
 		<!-- footer -->
 		<?php include( ROOT_PATH . '/includes/footer.php') ?>
