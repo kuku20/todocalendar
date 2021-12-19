@@ -54,7 +54,48 @@
 	<?php
 		$userdiary = $_SESSION['username']; 
 		$userdiaryDB = $client->todocalender->userdiary;
+		$date = $userdiaryDB->find(['userdiary' => $userdiary]);
+			// to have the array to put data from the database
+		$data=array();
+		foreach ($date as $key) {
+			$date_post = $key['date_post'];
+			// to push the data to array data
+			array_push($data,$date_post);
+		}
+			// reverse and unique the array
+		$result = array_reverse(array_unique($data));
+	// for video only===========
+		$videolinks=array();
+		$videodates=array();
+		$videos = $userdiaryDB->find(['userdiary' => $userdiary, 'category' => 'video']);
+		foreach ($videos as $key) {
+			array_push($videolinks,$key['note']);
+			array_push($videodates,$key['date_post']);
+		}
+		$videolinks = array_reverse($videolinks);
+		$videodates = array_reverse($videodates);
+	// for link only===========
+		$link=array();
+		$linkdate=array();
+		$videos = $userdiaryDB->find(['userdiary' => $userdiary, 'category' => 'link']);
+		foreach ($videos as $key) {
+			array_push($link,$key['note']);
+			array_push($linkdate,$key['date_post']);
+		}
+		$link = array_reverse($link);	
+		$linkdate = array_reverse($linkdate);	
+	// for video only===========
+		$text=array();
+		$textdate=array();
+		$videos = $userdiaryDB->find(['userdiary' => $userdiary, 'category' => 'text']);
+		foreach ($videos as $key) {
+			array_push($text,$key['note']);
+			array_push($textdate,$key['date_post']);
+		}
+		$text = array_reverse($text);
+		$textdate = array_reverse($textdate);
 	?>
+
 	<!-- // navbar -->
 	<!-- Tab links -->
 	<div class="tab">
@@ -65,54 +106,44 @@
 	</div>
 	<hr>
 	<div id="Video" class="tabcontent">
-	  	<?php 
-	  		$videos = $userdiaryDB->find(['userdiary' => $userdiary, 'category' => 'video']);
-			foreach ($videos as $key) {
-				echo '<h3>';
-				echo $key['date_post'];
-				echo ' :</h3>'; 
-				echo $key['note'];
-				echo '<hr>';
+	  	<?php
+			foreach (array_combine($videolinks,$videodates) as $key=>$date) {
+			echo '<h3>';
+			echo $date;
+			echo ' :</h3>'; 
+			echo $key;
+			echo '<hr>';
 			}
 		?>
 	</div>
 	<div id="Links" class="tabcontent">
 	  	<?php 
-	  		$links = $userdiaryDB->find(['userdiary' => $userdiary,'category' => 'link']);
-			foreach ($links as $key) {
-				echo '<h3>';
-				echo $key['date_post'];
-				echo ' :</h3>'; 
-				echo $key['note'];
-				echo '<hr>';
-		}?>	
+  		foreach(array_combine($link,$linkdate) as $key=>$date) {
+			echo '<h3>';
+			echo $date;
+			echo ' :</h3>'; 
+			echo $key;
+			echo '<hr>';
+		}
+		?>	
 	</div>
-
 	<div id="Notes" class="tabcontent">
-	  	<?php 
-	  		$links = $userdiaryDB->find(['userdiary' => $userdiary,'category' => 'text']);
-			foreach ($links as $key) {
+	  	<?php
+	  	// foreach ($result as $date) {
+	  		// $links = $userdiaryDB->find(['userdiary' => $userdiary,'category' => 'text']);
+			foreach(array_combine($text,$textdate) as $key=>$date) {
 				echo '<h3>';
-				echo $key['date_post'];
+				echo $date;
 				echo ' :</h3>'; 
-				echo $key['note'];
+				echo $key;
 				echo '<hr>';
 		}?>	
 	</div>
 	<div id="displayAll">
 	  	<?php
-			$date = $userdiaryDB->find(['userdiary' => $userdiary]);
-			// to have the array to put data from the database
-			$data=array();
-			foreach ($date as $key) {
-				$date_post = $key['date_post'];
-				// to push the data to array data
-				array_push($data,$date_post);
-			}
-				// reverse and unique the array
-			$result = array_reverse(array_unique($data));
 			//  use the foreach to print the array
 			foreach ($result as &$value) {
+	  		// for ($x = 0; $x <=3; $x++){
 			//  select each data form array to select on the database
 		?>
 			<h1 style=" text-align: center;" ><? echo $value ?> </h1>
@@ -137,6 +168,8 @@
 	<!-- footer -->
 	<?php include( ROOT_PATH . '/includes/footer.php') ?>
 	<!-- // footer -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
 <script>
 function openOption(evt, Option) {
 	var i, tabcontent, tablinks;
@@ -152,4 +185,11 @@ function openOption(evt, Option) {
 	evt.currentTarget.className += " active";
 	document.getElementById("displayAll").style.display = "none";;
 }
+// $(document).ready(function(){
+// 	$(window).scroll(function(){
+// 		if($(window).scrollTop() >=$(document).height() -$(window).height()){
+// 			alert();
+// 		}
+// 	});
+// });
 </script>
