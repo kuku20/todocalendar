@@ -44,7 +44,10 @@
 
 	  	/*border-top: none;*/
 	}
-
+	.more{
+		font-size: 50px;
+		margin-left: 88%;
+	}
 </style>
 </head>
 <body>
@@ -54,16 +57,6 @@
 	<?php
 		$userdiary = $_SESSION['username']; 
 		$userdiaryDB = $client->todocalender->userdiary;
-		$date = $userdiaryDB->find(['userdiary' => $userdiary]);
-			// to have the array to put data from the database
-		$data=array();
-		foreach ($date as $key) {
-			$date_post = $key['date_post'];
-			// to push the data to array data
-			array_push($data,$date_post);
-		}
-			// reverse and unique the array
-		$result = array_reverse(array_unique($data));
 	// for video only===========
 		$videolinks=array();
 		$videodates=array();
@@ -106,14 +99,18 @@
 	</div>
 	<hr>
 	<div id="Video" class="tabcontent">
-	  	<?php
-			foreach (array_combine($videolinks,$videodates) as $key=>$date) {
+	  	<!-- <div id="videoTab">
+	  		
+	  	</div> -->
+	  	<!-- <a id="moreVideo" class="more" href="">more...</a> -->
+	  	<?php 
+  		foreach(array_combine($videolinks,$videodates) as $key=>$date) {
 			echo '<h3>';
 			echo $date;
 			echo ' :</h3>'; 
 			echo $key;
 			echo '<hr>';
-			}
+		}
 		?>
 	</div>
 	<div id="Links" class="tabcontent">
@@ -140,31 +137,14 @@
 		}?>	
 	</div>
 	<div id="displayAll">
-	  	<?php
-			//  use the foreach to print the array
-			// foreach ($result as &$value) {
-	  		for ($x = 0; $x <=3; $x++){
-			//  select each data form array to select on the database
-		?>
-			<h1 style=" text-align: center;" ><? echo $result[$x] ?> </h1>
-			<hr>
-		<?php	
-			$detail = $userdiaryDB->find(['userdiary' => $userdiary, 'date_post'=> $result[$x]]);
-		?> 
-		<div class=''> 
-			<?php
-				foreach ($detail as $key) {    
-				    $note = $key['note'];
-			?>
-			        <div >   
-						<span >  You wrote: <span class="delete" id="<? echo $row["id"] ?>" ></span>
-				        <span class="note"><? echo $note ?></span>
-				        </span>        			
-			        </div>
-				<hr>
-			<?php }}?>
+		<div id="display">
+			
 		</div>
+		<!-- <span><a  id="all" href="">more</a></span> -->
+		<a id="all" class="more" href="">more...</a>
+		<!-- <span  id="all">more</span> -->
 	</div>
+	
 	<!-- footer -->
 	<?php include( ROOT_PATH . '/includes/footer.php') ?>
 	<!-- // footer -->
@@ -185,11 +165,92 @@ function openOption(evt, Option) {
 	evt.currentTarget.className += " active";
 	document.getElementById("displayAll").style.display = "none";;
 }
-// $(document).ready(function(){
-// 	$(window).scroll(function(){
-// 		if($(window).scrollTop() >=$(document).height() -$(window).height()){
-// 			alert();
-// 		}
-// 	});
+var all = 0;
+$(document).ready(function(){
+	$.ajax({
+		type: "GET",
+	    url: 'secretincludes/secretdata.php',
+	    data: {
+	    	'start':0,
+	    	'end':3
+	    },
+	    
+	    success: function(data) {
+	    	$('#display').append(data);
+	    	all += 3;
+	    }
+	});
+// scroll down it will call this function
+	// $('#all').scroll(function(){
+	// 	if($(window).scrollTop() >=$(document).height() -$(window).height()){
+	// 		// alert();
+	// 		$.ajax({
+	// 			type: "GET",
+	// 		    url: 'secretincludes/secretdata.php',
+	// 		    data: {
+	// 		    	'start':all,
+	// 		    	'end':all+3
+	// 		    },
+			    
+	// 		    success: function(data) {
+	// 		    	$('#displayAll').append(data);
+	// 		    	all += 3;
+	// 		    }
+	// 		});
+	// 	}
+	// });
+});
+
+$('#all').on('click', function(e){
+    // We don't want this to act as a link so cancel the link action
+    e.preventDefault();
+    $.ajax({
+				type: "GET",
+			    url: 'secretincludes/secretdata.php',
+			    data: {
+			    	'start':all,
+			    	'end':all+3
+			    },
+			    
+			    success: function(data) {
+			    	$('#display').append(data);
+			    	all += 3;
+			    }
+			});  
+});
+
+// var video = 0;
+// $('#Video').on('click', function(e){
+//     // We don't want this to act as a link so cancel the link action
+//     // e.preventDefault();
+//     $.ajax({
+// 		type: "GET",
+// 	    url: 'secretincludes/video.php',
+// 	    data: {
+// 	    	'start':0,
+// 	    	'end':5
+// 	    },
+	    
+// 	    success: function(data) {
+// 	    	$('#videoTab').append(data);
+// 	    	video += 2;
+// 	    }
+// 	});  
+// });
+// $('#moreVideo').on('click', function(e){
+//     // We don't want this to act as a link so cancel the link action
+//     e.preventDefault();
+//     $.ajax({
+// 		type: "GET",
+// 	    url: 'secretincludes/video.php',
+// 	    data: {
+// 	    	'start':video,
+// 			'end':video+=2
+// 	    },
+// 	    success: function(data) {
+// 	    	$('#videoTab').append(data);
+// 	    	video += 2;
+// 	    }
+// 	});  
 // });
 </script>
