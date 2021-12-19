@@ -129,28 +129,27 @@
 	</div>
 	<div id="Notes" class="tabcontent">
 	  	<?php
-	  	foreach ($result as $date) {
-	  		$links = $userdiaryDB->find(['userdiary' => $userdiary,'category' => 'text']);
+	  	// foreach ($result as $date) {
+	  		// $links = $userdiaryDB->find(['userdiary' => $userdiary,'category' => 'text']);
 			foreach(array_combine($text,$textdate) as $key=>$date) {
 				echo '<h3>';
 				echo $date;
 				echo ' :</h3>'; 
 				echo $key;
 				echo '<hr>';
-		}
-		?>	
+		}?>	
 	</div>
 	<div id="displayAll">
 	  	<?php
 			//  use the foreach to print the array
-			foreach ($result as &$value) {
-	  		// for ($x = 0; $x <=3; $x++){
+			// foreach ($result as &$value) {
+	  		for ($x = 0; $x <=3; $x++){
 			//  select each data form array to select on the database
 		?>
-			<h1 style=" text-align: center;" ><? echo $value ?> </h1>
+			<h1 style=" text-align: center;" ><? echo $result[$x] ?> </h1>
 			<hr>
 		<?php	
-			$detail = $userdiaryDB->find(['userdiary' => $userdiary, 'date_post'=> $value]);
+			$detail = $userdiaryDB->find(['userdiary' => $userdiary, 'date_post'=> $result[$x]]);
 		?> 
 		<div class=''> 
 			<?php
@@ -186,22 +185,11 @@ function openOption(evt, Option) {
 	evt.currentTarget.className += " active";
 	document.getElementById("displayAll").style.display = "none";;
 }
-$(document).ready(function(){
-	// $.ajax({
- //        type: "GET",
- //        url: 'secret.php',
- //        data: {
- //          'offset':0,
- //          'limit':5,
- //        },
- //        success: function(data){
- //        	$('#Notes').append(data);
- //        }
- //    });
-	// $(window).scroll(function(){
-	// 	if($(window).scrollTop() >=$(document).height() -$(window).height()){
-	// 		alert();
-	// 	}
-	// });
-});
+// $(document).ready(function(){
+// 	$(window).scroll(function(){
+// 		if($(window).scrollTop() >=$(document).height() -$(window).height()){
+// 			alert();
+// 		}
+// 	});
+// });
 </script>
