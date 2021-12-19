@@ -129,15 +129,16 @@
 	</div>
 	<div id="Notes" class="tabcontent">
 	  	<?php
-	  	// foreach ($result as $date) {
-	  		// $links = $userdiaryDB->find(['userdiary' => $userdiary,'category' => 'text']);
+	  	foreach ($result as $date) {
+	  		$links = $userdiaryDB->find(['userdiary' => $userdiary,'category' => 'text']);
 			foreach(array_combine($text,$textdate) as $key=>$date) {
 				echo '<h3>';
 				echo $date;
 				echo ' :</h3>'; 
 				echo $key;
 				echo '<hr>';
-		}?>	
+		}
+		?>	
 	</div>
 	<div id="displayAll">
 	  	<?php
@@ -185,11 +186,22 @@ function openOption(evt, Option) {
 	evt.currentTarget.className += " active";
 	document.getElementById("displayAll").style.display = "none";;
 }
-// $(document).ready(function(){
-// 	$(window).scroll(function(){
-// 		if($(window).scrollTop() >=$(document).height() -$(window).height()){
-// 			alert();
-// 		}
-// 	});
-// });
+$(document).ready(function(){
+	// $.ajax({
+ //        type: "GET",
+ //        url: 'secret.php',
+ //        data: {
+ //          'offset':0,
+ //          'limit':5,
+ //        },
+ //        success: function(data){
+ //        	$('#Notes').append(data);
+ //        }
+ //    });
+	// $(window).scroll(function(){
+	// 	if($(window).scrollTop() >=$(document).height() -$(window).height()){
+	// 		alert();
+	// 	}
+	// });
+});
 </script>

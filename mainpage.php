@@ -33,7 +33,7 @@
  <?php include( ROOT_PATH . '/mainpage/navbar.php') ?>
 <!-- navbar -->
 
-
+<?php echo $_SESSION['username']; ?>
 <div id="out"> 
     <!-- calender show here -->
   <div class="bigBox">

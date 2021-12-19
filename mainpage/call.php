@@ -12,11 +12,11 @@ if(isset($_POST['action']) or isset($_GET['view']))
         
         header('Content-Type: application/json');
         
-        $collection = $client->todocalender->events;
+        $eventsDB = $client->todocalender->events;
         $start = $_GET["start"];
         $end = $_GET["end"];
 
-        $listtododaily = $collection ->find(['userEvent'=> $userEvent]);
+        $listtododaily = $eventsDB ->find(['userEvent'=> $userEvent]);
         foreach ($listtododaily as $key) {
             $events[] = $key; 
             // $events[] = $key['_id']; 
@@ -36,8 +36,8 @@ if(isset($_POST['action']) or isset($_GET['view']))
         $color      =   $_POST["color"];
 
         
-        $collection = $client->todocalender->events;
-        $insertOneResult = $collection->insertOne([
+        $eventsDB = $client->todocalender->events;
+        $insertOneResult = $eventsDB->insertOne([
             'title'  => $title,
             'start'   => $start,
             'end' => $end,
@@ -56,13 +56,13 @@ if(isset($_POST['action']) or isset($_GET['view']))
     }
     elseif($_POST['action'] == "update")
     {   
-        $collection = $client->todocalender->events;
+        $eventsDB = $client->todocalender->events;
         $id = new \MongoDB\BSON\ObjectId($_POST['id']);
         $start = date('Y-m-d H:i:s',strtotime($_POST["start"]));
         $end = date('Y-m-d H:i:s',strtotime($_POST["end"]));
         $datestart = date('Y-m-d',strtotime($_POST["start"]));
         $dateend = date('Y-m-d',strtotime($_POST["end"]));
-        $collection->updateOne(  
+        $eventsDB->updateOne(  
             ['_id' => $id],
             ['$set' => ['start' => $start,
                         'end' =>$end,
@@ -74,9 +74,9 @@ if(isset($_POST['action']) or isset($_GET['view']))
     }
     elseif($_POST['action'] == "delete") 
     {   
-        $collection = $client->todocalender->events;
+        $eventsDB = $client->todocalender->events;
         $id = new \MongoDB\BSON\ObjectId($_POST['id']);
-        $collection->deleteOne(['_id' => $id]);
+        $eventsDB->deleteOne(['_id' => $id]);
         echo "1";
         exit;
     }
